@@ -117,6 +117,5 @@ class BookController extends Controller
             );
         }
         return redirect()->route('book')->with($notification);
-        dd($data);
     }
 }
