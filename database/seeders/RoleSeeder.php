@@ -20,5 +20,6 @@ class RoleSeeder extends Seeder
 
         Role::create(['name' => 'mahasiswa']);
         Permission::create(['name' => 'view_book']);
+        
     }
 }

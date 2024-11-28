@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'mahasiswa',
             'email' => 'mahasiswa@unsur.ac.id',
-        ])->assignRole('mahasiswa')->givePermissionTo('view_book');
+        ])->assignRole('mahasiswa')->givePermissionTo('view_book',);
 
         User::factory()->create([
             'name' => 'pustakawan',
