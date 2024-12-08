@@ -21,9 +21,10 @@
 
 <script>
     document.querySelectorAll('th')
-        .forEach(el => el.classList.add("px-6", "py-3", "text-left", "text-xs", "font-medium", "textblack-500",
-            "uppercase"));
+        .forEach(el => el.classList.add("px-6", "py-3", "text-left", "text-xl", "font-medium", "text-black-500",
+            "uppercase")); // Perbesar font pada th ke text-xl
+
     document.querySelectorAll('td')
-        .forEach(el => el.classList.add("px-6", "py-4", "whitespace-nowrap", "text-sm", "font-medium", "text-black-800",
-            "dark:text-black-200"));
+        .forEach(el => el.classList.add("px-6", "py-4", "whitespace-nowrap", "text-lg", "font-medium", "text-black-800",
+            "dark:text-black-200")); // Perbesar font pada td ke text-lg
 </script>

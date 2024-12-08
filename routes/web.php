@@ -28,6 +28,9 @@ Route::group(['middleware' => ['role:pustakawan']], function () {
     Route::delete('/book/{id}/destroy', [BookController::class, 'destroy'])->name('book.destroy');
     Route::get('/book/print', [BookController::class, 'print'])->name('book.print');
     Route::get('/book/export', [BookController::class, 'export'])->name('book.export');
+    Route::get('/book/search', [BookController::class,'search'])->name('book.search');
+    
+
 
 });
 

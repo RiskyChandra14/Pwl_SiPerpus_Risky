@@ -12,11 +12,24 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class BookController extends Controller
 {
-    public function index()
-    {
-        $data['books'] = Book::all();
-        return view('books.index', $data);
-    }
+    public function index(Request $request)
+{
+ 
+    $query = $request->input('query', '');
+
+   
+    $books = Book::when($query, function ($queryBuilder) use ($query) {
+        return $queryBuilder->where('title', 'like', '%' . $query . '%')
+                             ->orWhere('author', 'like', '%' . $query . '%');
+    })->paginate(5); 
+
+ 
+    return view('books.index', compact('books', 'query'));
+}
+
+    
+
+
     public function create()
     {
         $data['bookshelves'] = Bookshelf::pluck('name', 'id');
@@ -131,4 +144,25 @@ class BookController extends Controller
         return Excel::download(new BooksExport, 'book.xlsx');
     }
     
+
+    public function search(Request $request)
+{
+    // Ambil query pencarian dari input user
+    $query = $request->input('query');
+
+    // Cari data buku berdasarkan query pencarian (judul atau penulis)
+    if ($query) {
+        $books = Book::where('title', 'like', "%{$query}%")
+                     ->orWhere('author', 'like', "%{$query}%")
+                     ->paginate(5);  // Gunakan paginate di sini
+    } else {
+        // Jika tidak ada query, ambil semua buku dengan pagination
+        $books = Book::paginate(5);  // Gunakan paginate di sini juga
+    }
+
+    // Kirim data buku dan query ke view
+    return view('books.index', compact('books', 'query'));
+}
+
+
 }

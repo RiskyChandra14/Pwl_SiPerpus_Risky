@@ -1,23 +1,27 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-3xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Book') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="p- bg-transparent dark:bg-transparent overflow-hidden shadow-sm sm:rounded-lg text-2xl !important">
+                <div class="p-16 text-gray-900 dark:text-white font-bold !important">
 
+                    <x-search-form :query="$query" />
                     <x-primary-button tag="a" href="{{ route('book.create') }}">Tambah Data Buku</x-primary-button>
                     <x-primary-button tag="a" href="{{ route('book.print') }}">Print Data Buku</x-primary-button>
                     <x-primary-button tag="a" href="{{ route('book.export') }}">Export Data Buku</x-primary-button>
-
+                    
+                    <div class="mt-4">
+                        {{ $books->links() }}
+                    </div>
                     <x-table>
                         <x-slot name="header">
-                            <tr class="py-10">
-                                <th scope="col">#</th>
+                            <tr class="py-10 text-xl !important"> 
+                                <th class="text-xl !important" scope="col">#</th>
                                 <th scope="col">Judul</th>
                                 <th scope="col">Penulis</th>
                                 <th scope="col">Tahun</th>
@@ -28,8 +32,9 @@
                                 <th scope="col">Aksi</th>
                             </tr>
                         </x-slot>
+                    
                         @foreach ($books as $book)
-                            <tr>
+                            <tr class="text-lg !important"> 
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $book->title }}</td>
                                 <td>{{ $book->author }}</td>
@@ -41,11 +46,10 @@
                                 </td>
                                 <td>{{ $book->bookshelf->code }}-{{ $book->bookshelf->name }}</td>
                                 <td>
-                                    <x-primary-button tag="a"
-                                        href="{{ route('book.edit', $book->id) }}">Edit</x-primary-button>
+                                    <x-primary-button tag="a" href="{{ route('book.edit', $book->id) }}">Edit</x-primary-button>
                                     <x-danger-button x-data=""
                                         x-on:click.prevent="$dispatch('open-modal', 'confirm-book-deletion')"
-                                        x-on:click="$dispatch('set-action', '{{ route('book.destroy', $book->id) }}')">{{ __('Delete') }}</x-danger-button>
+                                        x-on:click="$dispatch('set-action', '{{ route('book.destroy', $book->id) }}')">Hapus</x-danger-button>
                                 </td>
                             </tr>
                         @endforeach
